@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-   <p>ホーム画面です</p>
+   <p>コンテンツ</p>
   </div>
 </template>
 
