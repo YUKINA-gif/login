@@ -1,5 +1,13 @@
 <template>
   <div id="login">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="./SignUp.vue">新規作成</a></li>
+          <li><a href="./Login.vue">ログイン</a></li>
+        </ul>
+      </nav>
+      </header>
 
     <div class="card">
       <p>ログイン</p>
