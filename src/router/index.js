@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import SignUp from '../views/SignUp.vue';
 import Withdrawal from '../views/Withdrawal.vue';
+import store from "../store/index";
 
 Vue.use(VueRouter)
 
@@ -11,7 +12,10 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta:{
+      requiresAuth: true,
+      },
   },
   {
     path: "/",
@@ -26,8 +30,8 @@ const routes = [
   {
     path: "/withdrawal",
     name: "Withdrawal",
-    component:Withdrawal,
-  }
+    component: Withdrawal,
+  },
 ]
 
 const router = new VueRouter({
@@ -36,4 +40,19 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !store.state.auth
+  ) {
+    next({
+      path: "/",
+      query: {
+        redirect: to.fullPath,
+      },
+    });
+  } else {
+    next();
+  }
+});
 export default router
