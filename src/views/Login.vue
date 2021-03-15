@@ -3,7 +3,7 @@
     <header>
       <nav>
         <ul>
-          <li @click="$router.push('/signUp')">新規作成</li>
+          <li @click="$router.push('/signup')">新規作成</li>
           <li  @click="$router.push('/')">ログイン</li>
         </ul>
       </nav>
