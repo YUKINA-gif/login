@@ -34,7 +34,7 @@ export default{
       })
       .then(response => {
         console.log(response);
-        this.$router.replase("/home");
+        this.$router.replace("/");
       })
       .catch(error =>{
         alert(error);

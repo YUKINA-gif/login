@@ -14,11 +14,30 @@
       <div class="form">
       <input type="email" name="email" placeholder="メールアドレス">
       <input type="password" name="password" placeholder="パスワード">
-      <button>ログイン</button>
+      <button @click="login">ログイン</button>
       </div>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      email:"",
+      password:"",
+    };
+  },
+  methods:{
+    login(){
+      this.$store.dispatch("login",{
+        email:this.email,
+        password:this.password
+      });
+
+    }
+  }
+};
+</script>
 
 <style scoped>
 button {
@@ -60,5 +79,10 @@ input {
 
 .form button {
   margin-top: 15px;
+}
+
+ul{
+  display: flex;
+  margin-left: 20px;
 }
 </style>
