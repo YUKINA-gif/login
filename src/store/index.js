@@ -10,7 +10,7 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     user: "",
-    auth:"",
+    auth: "",
   },
   mutations: {
     auth(state, payload) {
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async login({ commit },{ email, password }){
+    async login({ commit }, { email, password }) {
       const responseLogin = await axios.post(
         "https://warm-eyrie-05497.herokuapp.com/api/login",
         {
@@ -30,7 +30,7 @@ export default new Vuex.Store({
         }
       );
       const responseUser = await axios.get(
-        "https://warm-eyrie-05497.herokuapp.com/api/user",
+        "https://warm-eyrie-05497.herokuapp.com/api/login",
         {
           params: {
             email: email,
@@ -44,4 +44,4 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+});
