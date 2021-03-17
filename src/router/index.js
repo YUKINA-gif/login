@@ -42,8 +42,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (
-    to.matched.some((record) => record.meta.requiresAuth) &&
-    !store.state.auth
+    to.matched.some((record) => record.meta.requiresAuth) && !store.state.auth
   ) {
     next({
       path: "/",
