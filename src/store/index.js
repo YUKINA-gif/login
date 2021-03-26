@@ -39,7 +39,7 @@ export default new Vuex.Store({
       );
       commit("auth", responseLogin.data.auth);
       commit("user", responseUser.data.data[0]);
-      router.replace("/home");
+      router.replace ({ name:"Home"});
     },
   },
   modules: {

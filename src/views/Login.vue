@@ -1,89 +1,70 @@
 <template>
-  <div id="login">
-    <header>
-      <nav>
-        <ul>
-          <li @click="$router.push('/signup')">新規作成</li>
-          <li  @click="$router.push('/')">ログイン</li>
-        </ul>
-      </nav>
-      </header>
-
+  <div id="Login">
+    <Header />
+    
     <div class="card">
-      <p>ログイン</p>
-      <div class="form">
-      <input type="email" name="email" placeholder="メールアドレス" v-model="email">
-      <input type="password" name="password" placeholder="パスワード" v-model="password">
+      <h2>ログイン</h2>
+      <input type="email" v-model="email" placeholder="メールアドレス">
+      <input type="password" v-model="password" placeholder="パスワード">
       <button @click="login">ログイン</button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Header from '../components/Header'
 export default {
   data() {
     return {
-      email:"",
-      password:"",
+      email: "",
+      password: ""
     };
   },
-  methods:{
-    login(){
-      this.$store.dispatch("login",{
-        email:this.email,
-        password:this.password
+  methods: {
+    login() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
       });
-
     }
+  },
+  components:{
+    Header
   }
 };
 </script>
 
 <style scoped>
-button {
-  width: 100px;
-  text-align: center;
-  padding: 8px 0 10px;
-  color: #fff;
-  background-color: #84ebb2;
-  border-radius: 10px;
-  cursor: pointer;
-  outline: none;
-  border: none;
-}
 .card {
-  margin: 100px auto;
+  margin: 120px auto;
   width: 350px;
-  background-color:#fff;
-  border-radius: 10px;
-  padding: 20px;
 }
-.card p {
-  color: black;
+.card h2 {
+  color: gray;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 10px;
 }
 input {
-  margin-top: 15px;
-  width: 80%;
-  border-radius: 10px;
-  padding: 10px;
-  border: 2px solid rgba(154, 241, 113, 0.938);
+  margin: 20px auto;
+  width: 350px;
+  padding: 10px 0;
+  border: 2px solid #bebebebb;
+  border-radius: 5px;
   color: black;
   outline: none;
+  font-size: 15px;
 }
-
-.form {
-  text-align: center;
-}
-
-.form button {
-  margin-top: 15px;
-}
-
-ul{
-  display: flex;
-  margin-left: 20px;
+button{
+  margin: 20px 75px;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid rgb(121, 201, 204);
+  border-radius: 5px;
+  background-color: rgb(121, 201, 204);
+  color:#fff;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>

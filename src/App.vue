@@ -99,11 +99,4 @@ hr {
 input, select {
     vertical-align:middle;
 }
-
-html {
-  background-color: rgb(245, 245, 216);
-}
-* {
-  font-family: "Meiryo";
-}
 </style>
