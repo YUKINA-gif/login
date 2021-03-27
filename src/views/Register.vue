@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Header from '../components/Header'
+import Header from '../components/Header';
 import axios from 'axios';
 export default{
   data() {
@@ -27,7 +27,7 @@ export default{
   },
   methods: {
     create(){
-      axios.post("https://warm-eyrie-05497.herokuapp.com/api/signup",{
+      axios.post("https://warm-eyrie-05497.herokuapp.com/api/register",{
         name:this.name,
         profile:this.profile,
         email:this.email,

@@ -19,6 +19,12 @@ export default new Vuex.Store({
     user(state, payload) {
       state.user = payload;
     },
+    logout(state, paylord) {
+      state.auth = paylord;
+    },
+    changeUserData(state, paylord) {
+      state.user.profile = paylord;
+    }
   },
   actions: {
     async login({ commit }, { email, password }) {
@@ -30,7 +36,7 @@ export default new Vuex.Store({
         }
       );
       const responseUser = await axios.get(
-        "https://warm-eyrie-05497.herokuapp.com/api/login",
+        "https://warm-eyrie-05497.herokuapp.com/api/user",
         {
           params: {
             email: email,
@@ -39,9 +45,21 @@ export default new Vuex.Store({
       );
       commit("auth", responseLogin.data.auth);
       commit("user", responseUser.data.data[0]);
-      router.replace ({ name:"Home"});
+      router.replace ("/home");
+    },
+    logout({ commit }) {
+      axios.post("https://warm-eyrie-05497.herokuapp.com/api/logout", { auth: this.state.auth, })
+        .then((response) => {
+          console.log(response);
+          commit("logout", response.data.auth);
+          router.replace("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    changeUserData({ commit }, { profile }) {
+      commit("changeUserData", profile);
     },
   },
-  modules: {
-  }
 });

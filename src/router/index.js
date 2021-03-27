@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import SignUp from '../views/SignUp.vue';
-import Withdrawal from '../views/Withdrawal.vue';
+import Register from '../views/Register.vue';
 import store from "../store/index";
+import Profile from "../views/Profile.vue";
+import Detail from '../views/Detail.vue';
 
 Vue.use(VueRouter)
 
@@ -23,15 +24,27 @@ const routes = [
     component: Login,
   },
   {
-    path: "/signup",
-    name: "SignUp",
-    component:SignUp,
+    path: "/register",
+    name: "Register",
+    component:Register,
   },
   {
-    path: "/withdrawal",
-    name: "Withdrawal",
-    component: Withdrawal,
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    meta: {
+      requiresAuth:true,
+    }
   },
+   {
+    path: "/detail/:id",
+    name: "Detail",
+    component: Detail,
+    props:true,
+    meta: {
+      requiresAuth:true,
+    }
+  }
 ]
 
 const router = new VueRouter({
@@ -44,6 +57,12 @@ router.beforeEach((to, from, next) => {
   if (
     to.matched.some((record) => record.meta.requiresAuth) && !store.state.auth
   ) {
+    // このルートはログインされているかどうか認証が必要です。record = ルートレコード、meta.requiresAuthは上記ルートで設定したmetaフィールド
+
+    //store.state.authはstore index.jsに設定したstateのauth
+
+    // もしされていないならば、ログインページにリダイレクトします。
+    //fullPath = クエリやhashを含む全体のURL
     console.log(store.state.auth)
     next({
       path: "/",
@@ -52,6 +71,7 @@ router.beforeEach((to, from, next) => {
       },
     });
   } else {
+     //認証済み、または認証不要であればそのまま表示
     next();
   }
 });
