@@ -6,7 +6,7 @@
       <div class="profile">
         <Message :id="id" />
 
-    <h2>コメント一覧</h2>
+    <h2>コメントを送る</h2>
         <div class="message" v-for="(comment,index) in data" :key="index">
           <div class="flex">
             <p class="name">{{comment.comment_user.name}}</p>
@@ -15,13 +15,12 @@
             <p class="text">{{comment.comment.content}}</p>
           </div>
         </div>
-        <p class="commentTag">コメントを送る</p>
         <input v-model="content" type="text" />
 
         <div @click="send">
           <button class="comment" @click="send">コメント</button>
         </div>
-        <!-- <ShareMessage /> -->
+        <button class="comment" @click="$router.push('/home')">戻る</button>
     </div>
     </div>
 </template>
@@ -46,9 +45,31 @@ export default {
   methods:{
     send(){
       axios
-      .post()
-    }
-  }
+      .post("https://warm-eyrie-05497.herokuapp.com/api/comment",{
+        share_id:this.id,
+        user_id:this.$store.state.user.id,
+        content:this.content,
+      })
+      .then((response) => {
+        console.log(response);
+        this.content = "";
+        this.$router.go({
+          path:this.$router.currentRoute.path,
+          force:true,
+        });
+      });
+    },
+    comment(){
+      axios
+      .get("https://warm-eyrie-05497.herokuapp.com/api/shares/" + this.id)
+      .then((response) => {
+        this.data = response.data.comment;
+      });
+    },
+  },
+  created(){
+    this.comment();
+  },
   };
 </script>
 
@@ -62,7 +83,7 @@ h2{
   background: rgb(121, 201, 204);
   color: #fff;
   outline: none;
-  margin-left: 10px;
+  margin: 10px 0 0 10px;
 
 }
 .commentTag{

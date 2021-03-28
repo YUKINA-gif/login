@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(value,index) in shares" :key="index">
+    <div class="post" v-for="(value,index) in shares" :key="index">
       <div class="message">
         <p class="text name">{{ value.name }}</p>
         <p class="text">{{ value.item.share }}</p>
@@ -45,10 +45,12 @@ export default {
       path:true,
       profile:true,
     };
+    
   },
     methods: {
       fav(index){
-        const result = this.shares[index].like.some((value) => {return value.user_id == this.$store.state.user.id;});
+        const result = this.shares[index].like.some((value) => {return value.user_id == this.$store.state.user.id});
+        
         // some() 特定のデータが含まれているかどうか調べる
        if (result) {
          this.shares[index].like.forEach((element) => {
@@ -130,6 +132,7 @@ export default {
     }
     this.getShares();
   },
+  
 };
 </script>
 
@@ -172,5 +175,8 @@ img:nth-last-child(2){
 h2{
   font-size: 18px;
   margin: 10px 10px;
+}
+.post{
+  margin-bottom: 10px;
 }
 </style>
